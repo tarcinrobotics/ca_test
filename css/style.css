@@ -1,0 +1,291 @@
+/* Layout helpers */
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+}
+button {
+  border-radius: 0;
+  padding: 3px;
+}
+
+#divBody {
+  position: fixed; /* occupy the viewport under the top bar */
+  top: 74px; /* exactly below the top bar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden; /* prevent page scrollbars */
+}
+
+/* Make the panes fill the available height so Blockly can size correctly */
+#content_blocks,
+#content_code {
+  height: 100%;
+}
+
+/* Utility classes (for SessionAPI toasts/modals) */
+.hidden {
+  display: none !important;
+}
+.opacity-0 {
+  opacity: 0 !important;
+  transition: opacity 0.3s;
+}
+.opacity-100 {
+  opacity: 1 !important;
+  transition: opacity 0.3s;
+}
+
+/* Preview scroller */
+#pre_previewArduino::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+#pre_previewArduino::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 3px;
+}
+#pre_previewArduino::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: #20666b;
+}
+
+/* Board select */
+.ard {
+  background-color: #fff;
+  color: #000;
+  border: 0;
+}
+.ard:hover {
+  background-color: #fff;
+  color: #000;
+  border: 0;
+}
+
+/* Toolbar icons */
+.b01,
+.b02,
+.b03,
+.b04,
+.b05,
+.b07,
+.b08,
+.b09,
+.b10,
+.b11,
+.b12,
+.b13,
+.b14 {
+  width: 31px;
+  height: 31px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  background-size: cover;
+  transition: 0.2s;
+  background-color: transparent;
+}
+.b01 {
+  background-image: url(../media/menu/btn_add.png);
+}
+.b02 {
+  background-image: url(../media/menu/btn_open.png);
+}
+.b03 {
+  background-image: url(../media/menu/btn_save.png);
+}
+.b04 {
+  background-image: url(../media/menu/004.png);
+}
+.b05 {
+  background-image: url(../media/menu/005.png);
+}
+.b07 {
+  background-image: url(../media/menu/btn_monitor.png);
+}
+.b08 {
+  background-image: url(../media/menu/btn_code.png);
+}
+.b09 {
+  background-image: url(../media/menu/btn_logout.png);
+}
+.b10 {
+  background-image: url(../media/menu/010.png);
+}
+.b11 {
+  background-image: url(../media/menu/011.png);
+}
+.b12 {
+  background-image: url(../media/menu/btn_camera.png);
+}
+.b13 {
+  background-color: #001e36;
+  width: 150px;
+}
+.b14 {
+  background-image: url(../media/menu/014.png);
+}
+.b01:hover,
+.b02:hover,
+.b03:hover,
+.b07:hover,
+.b08:hover,
+.b09:hover,
+.b12:hover {
+  filter: brightness(0.7);
+}
+
+/* Copy feedback */
+#btn_copy.copied {
+  filter: brightness(1.5);
+  transform: scale(1.2);
+  transition: all 0.2s ease;
+  position: relative;
+}
+#btn_copy.copied::after {
+  content: "Copied!";
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeUp 1.2s forwards;
+  pointer-events: none;
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 5px);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -2px);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+}
+
+/* Toast & Idle modal (used by SessionAPI) */
+#logoutToast { display:flex; gap:8px; align-items:center; }
+#logoutToast .toast-icon svg { width:18px; height:18px; vertical-align:-2px; }
+
+#timeoutModal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+#timeoutModal .card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+}
+
+.table img {
+  display: none;
+}
+
+/* --- Splash / Loading --- */
+#mydiv {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(120% 120% at 50% 0%, #440577 0%, #7e4ab2 60%, #0b3a82 100%);
+  color: #fff;
+  opacity: 1;
+  transition: opacity .55s ease;
+}
+
+#mydiv.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#mydiv .outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+#mydiv .inner img {
+  width: clamp(140px, 22vw, 220px);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.3));
+  animation: splash-float 3s ease-in-out infinite, splash-in .6s ease both;
+  will-change: transform, opacity;
+}
+
+/* simple circular spinner */
+#mydiv .spinner {
+  width: 56px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 5px solid rgba(255,255,255,.28);
+  border-top-color: #fff;
+  animation: splash-spin 1s linear infinite;
+}
+
+/* loading text with animated dots */
+#mydiv .loading-text {
+  font: 500 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  opacity: .85;
+  letter-spacing: .3px;
+}
+
+#mydiv .loading-text::after {
+  content: "…";
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: splash-dots 1.2s steps(3, end) infinite;
+}
+
+/* Keyframes */
+@keyframes splash-spin { to { transform: rotate(1turn); } }
+
+@keyframes splash-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes splash-in {
+  from { transform: translateY(8px) scale(.98); opacity: 0; }
+  to   { transform: translateY(0) scale(1);     opacity: 1; }
+}
+
+@keyframes splash-dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #mydiv .inner img,
+  #mydiv .spinner,
+  #mydiv .loading-text::after {
+    animation: none !important;
+  }
+} 
